@@ -1,7 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
 app.proxy = true;
-app.use(async (ctx) => {
-  ctx.body = 'Hello World!';
-});
+const _ = require('./router');
+app.use(_.routes(), _.allowedMethods());
 module.exports = app;

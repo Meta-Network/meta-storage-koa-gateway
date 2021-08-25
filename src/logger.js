@@ -1,11 +1,10 @@
-const { resolve } = require('path');
 const config = require('./config').value;
 const winston = require('winston');
 
 const logger = winston.createLogger({
   level: config.logger.level,
   format: winston.format.json(),
-  transports: transports,
+  transports: [],
 });
 
 //
@@ -15,9 +14,12 @@ const logger = winston.createLogger({
 if (!config.node.env === 'prod') {
   logger.add(
     new winston.transports.Console({
-      format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
-      silent: process.env.NODE_ENV === 'test',
-    })
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple(),
+      ),
+      silent: config.node.env === 'test',
+    }),
   );
 }
 

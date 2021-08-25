@@ -1,8 +1,7 @@
-
 let envs = process.env;
-let envPath = `.env.${envs.NODE_ENV}`;
+const envPath = `.env.${envs.NODE_ENV}`;
 require('dotenv').config({
-  path: envPath
+  path: envPath,
 });
 let value;
 
@@ -22,8 +21,8 @@ const calculateValue = () => {
       level: envs.LOGGER_LEVEL || 'info',
     },
     node: {
-      env: envs.NODE_ENV
-    }
+      env: envs.NODE_ENV,
+    },
   };
 };
 calculateValue();

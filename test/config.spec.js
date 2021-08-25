@@ -9,7 +9,6 @@ describe('config value', () => {
       const config = require('../src/config').value;
       expect(config.app.port).toBe(3000);
       delete process.env.PORT;
-
     });
     it('should be equal to environment variable PORT', async () => {
       process.env.PORT = 3333;
@@ -19,7 +18,6 @@ describe('config value', () => {
 
       delete process.env.PORT;
     });
-
   });
   describe('fleek.storage.api.key', () => {
     it('should be equal to environment variable FLEEK_STORAGE_API_KEY', async () => {
@@ -52,9 +50,9 @@ describe('config value', () => {
     it('config value should matches envs param', async () => {
       const config = require('../src/config');
       const envs = {
-        "PORT": 2345,
-        "FOO": "abc",
-        "BAR": "def"
+        PORT: 2345,
+        FOO: 'abc',
+        BAR: 'def',
       };
       config.set(envs);
       const { value } = config;
