@@ -1,0 +1,51 @@
+{
+  "name": "@metaio/meta-storage-koa-gateway",
+  "version": "0.0.1",
+  "description": "Storage gateway for Meta Network (Koa Implemention)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cross-env node src/index.js",
+    "start:dev": "cross-env NODE_ENV=dev nodemon --inspect src/index.js",
+    "start:prod": "cross-env NODE_ENV=prod src/index.js",
+    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\"",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit",
+    "test:watch": "cross-env NODE_ENV=test jest --runInBand --forceExit --watch",
+    "test:cov": "cross-env NODE_ENV=test jest --runInBand --forceExit --coverage",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willyandor/meta-storage-koa-gateway.git"
+  },
+  "keywords": [
+    "Meta Network",
+    "Fleek"
+  ],
+  "author": "Andoroyur",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "husky": ">=6",
+    "jest": "^27.0.6",
+    "lint-staged": ">=10",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "D": "^1.0.0",
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "winston": "^3.3.3"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
+}
