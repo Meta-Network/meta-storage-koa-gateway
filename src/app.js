@@ -13,37 +13,40 @@ app.keys = ['meta-storage-secret-key'];
 app.proxy = true;
 app.use(helmet());
 // app.use(cookie());
-console.log(config.jwt.publicKey);
-app.use(async (ctx, next) => {
-  const accessToken = ctx.cookies.get(config.jwt.accessTokenName);
-  console.log(`accessToken: ${accessToken}`);
-  // const jwtPayload = jsonwebtoken.decode(accessToken);
-  // console.log(jwtPayload);
-  if (!accessToken) {
-    ctx.throw(401);
-  }
-  try {
-    const result = jsonwebtoken.verify(accessToken, config.jwt.publicKey, {
-      ignoreExpiration: true,
-      algorithms: ['RS256', 'RS384'],
-    });
-    console.log(result);
-    if (result && result.sub) {
-      ctx.user = {
-        id: +result.sub,
-        username: result.username,
-        instance: result.iss
-      };
-      console.log('ctx.user', ctx.user);
-      await next();
+if (config.jwt.enabled) {
+  console.log(config.jwt.publicKey);
+
+  app.use(async (ctx, next) => {
+    const accessToken = ctx.cookies.get(config.jwt.accessTokenName);
+    console.log(`accessToken: ${accessToken}`);
+    // const jwtPayload = jsonwebtoken.decode(accessToken);
+    // console.log(jwtPayload);
+    if (!accessToken) {
+      ctx.throw(401);
     }
-  } catch (err) {
-    console.error(err);
-    ctx.throw(401);
-  }
+    try {
+      const result = jsonwebtoken.verify(accessToken, config.jwt.publicKey, {
+        ignoreExpiration: true,
+        algorithms: ['RS256', 'RS384'],
+      });
+      console.log(result);
+      if (result && result.sub) {
+        ctx.user = {
+          id: +result.sub,
+          username: result.username,
+          instance: result.iss
+        };
+        console.log('ctx.user', ctx.user);
+        await next();
+      }
+    } catch (err) {
+      console.error(err);
+      ctx.throw(401);
+    }
 
 
-});
+  });
+}
 //app.use(require('./auth'));
 app.use(koaStatic(path.join(__dirname)));
 // app.use(cors({
