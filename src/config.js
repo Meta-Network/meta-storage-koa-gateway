@@ -10,6 +10,9 @@ const calculateValue = () => {
     app: {
       port: +(envs.PORT) || 3000,
     },
+    cors: {
+      origin: 'true' === envs.CORS_ORIGIN ? true : ('false' === envs.CORS_ORIGIN ? false : envs.CORS_ORIGIN)
+    },
     fleek: {
       storage: {
         api: {
@@ -28,6 +31,7 @@ const calculateValue = () => {
       maxSize: +(envs.UPLOAD_MAX_SIZE) || 10 * 1024 * 1024
     }
   };
+
   if (envs.MODULES) {
     value.modules = envs.MODULES.split(',')
       .map((moduleName) => moduleName.trim())

@@ -21,6 +21,7 @@ router.get('/robots.txt', async (ctx) => {
 
 router.get('/metrics', async (ctx) => {
   ctx.body = {
+    "cors.origin": config.cors.origin,
     "logger.level": config.logger.level,
     "node.env": config.node.env,
     "upload.maxSize": config.upload.maxSize,
