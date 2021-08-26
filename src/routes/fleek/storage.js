@@ -16,22 +16,24 @@ module.exports = {
   },
   async post(ctx) {
     // logger.log('ctx.request.files', ctx.request.files);
-    logger.info('ctx.files', ctx.files);
+    logger.info('ctx.file', ctx.file);
 
+    const userId = 0;
 
-    if (ctx.files && ctx.files.length > 0) {
-      const results = await Promise.all(ctx.files.map(async (file) =>
+    if (ctx.file) {
+      const file = ctx.file;
+      const result =
         await fleekStorage.upload({
           apiKey: config.fleek.storage.api.key,
           apiSecret: config.fleek.storage.api.secret,
-          key: `metaspace/${file.originalname}`,
+          key: `metanetwork/users/${userId}/${file.originalname}`,
           data: fs.createReadStream(file.path),
-        })
-      ));
+        });
+
       ctx.body = {
         statusCode: 201,
         message: 'uploaded',
-        data: results,
+        data: result,
       };
     }
     else {

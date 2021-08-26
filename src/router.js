@@ -11,12 +11,20 @@ if (config.modules) {
 }
 
 // index
-router.get('/hello', async (ctx) => {
+router.get('/', async (ctx) => {
   ctx.body = 'Hello, Meta Storage';
 });
 router.get('/robots.txt', async (ctx) => {
   ctx.set('Content-Type', 'text/plain');
   ctx.body = 'User-agent: *\nDisallow: /';
+});
+
+router.get('/metrics', async (ctx) => {
+  ctx.body = {
+    "logger.level": config.logger.level,
+    "node.env": config.node.env,
+    "upload.maxSize": config.upload.maxSize,
+  };
 });
 
 module.exports = router;

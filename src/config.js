@@ -8,7 +8,7 @@ let value;
 const calculateValue = () => {
   value = {
     app: {
-      port: Number(envs.PORT) || 3000,
+      port: +(envs.PORT) || 3000,
     },
     fleek: {
       storage: {
@@ -24,6 +24,9 @@ const calculateValue = () => {
     node: {
       env: envs.NODE_ENV,
     },
+    upload: {
+      maxSize: +(envs.UPLOAD_MAX_SIZE) || 10 * 1024 * 1024
+    }
   };
   if (envs.MODULES) {
     value.modules = envs.MODULES.split(',')
