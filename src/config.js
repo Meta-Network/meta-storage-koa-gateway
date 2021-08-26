@@ -25,7 +25,7 @@ const calculateValue = () => {
       env: envs.NODE_ENV,
     },
     upload: {
-      maxSize: +(envs.UPLOAD_MAX_SIZE) || 10 * 1024 * 1024
+      maxSize: +(envs.UPLOAD_MAX_SIZE) || 5 * 1024 * 1024
     }
   };
   if (envs.MODULES) {

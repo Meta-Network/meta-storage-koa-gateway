@@ -12,7 +12,7 @@ if (config.modules) {
 
 // index
 router.get('/', async (ctx) => {
-  ctx.body = 'Hello, Meta Storage';
+  ctx.body = 'Meta Storage Gateway';
 });
 router.get('/robots.txt', async (ctx) => {
   ctx.set('Content-Type', 'text/plain');
