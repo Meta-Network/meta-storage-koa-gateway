@@ -45,10 +45,13 @@
     "dotenv": "^10.0.0",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
+    "koa-cookie": "^1.0.0",
     "koa-cors": "^0.0.16",
     "koa-helmet": "^6.1.0",
+    "koa-passport": "^4.1.4",
     "koa-static": "^5.0.0",
     "multer": "^1.4.3",
+    "passport-jwt": "^4.0.0",
     "require-all": "^3.0.0",
     "winston": "^3.3.3"
   },

@@ -23,9 +23,15 @@ router.get('/metrics', async (ctx) => {
   ctx.body = {
     "cors.origin": config.cors.origin,
     "logger.level": config.logger.level,
+    "jwt.accessTokenName": config.jwt.accessTokenNmae,
+    "jwt.publicKey": config.jwt.publicKey,
     "node.env": config.node.env,
     "upload.maxSize": config.upload.maxSize,
   };
+});
+
+router.get('/users/me', async (ctx) => {
+  ctx.body = ctx.user;
 });
 
 module.exports = router;

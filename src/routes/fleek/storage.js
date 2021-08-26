@@ -18,7 +18,7 @@ module.exports = {
     // logger.log('ctx.request.files', ctx.request.files);
     logger.info('ctx.file', ctx.file);
 
-    const userId = 0;
+    const userId = ctx.user.id;
 
     if (ctx.file) {
       const file = ctx.file;

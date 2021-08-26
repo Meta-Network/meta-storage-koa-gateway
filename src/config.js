@@ -21,6 +21,10 @@ const calculateValue = () => {
         },
       },
     },
+    jwt: {
+      accessTokenName: envs.JWT_ACCESS_TOKEN_NAME,
+      publicKey: envs.JWT_PUBLIC_KEY,
+    },
     logger: {
       level: envs.LOGGER_LEVEL || 'info',
     },
