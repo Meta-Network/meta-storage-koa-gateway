@@ -1,25 +1,22 @@
+const config = require('./config').value;
 const Router = require('@koa/router');
-const _ = new Router();
+const router = new Router();
 
-const routes = require('require-all')({
-  dirname: __dirname + '/routes',
-  filter: /^index\.js$/,
-});
-
-for (const moduleName in routes) {
-  const routerModule = routes[moduleName];
-  for (const routerName in routerModule) {
-    _.use(`/${moduleName}`, routerModule[routerName].routes());
+// autoscan router modules
+if (config.modules) {
+  for (const moduleName of config.modules) {
+    const moduleRouter = require(`./routes/${moduleName}/index`);
+    router.use(`/${moduleName}`, moduleRouter.routes());
   }
 }
 
 // index
-_.get('/hello', async (ctx) => {
+router.get('/hello', async (ctx) => {
   ctx.body = 'Hello, Meta Storage';
 });
-_.get('/robots.txt', async (ctx) => {
+router.get('/robots.txt', async (ctx) => {
   ctx.set('Content-Type', 'text/plain');
   ctx.body = 'User-agent: *\nDisallow: /';
 });
 
-module.exports = _;
+module.exports = router;

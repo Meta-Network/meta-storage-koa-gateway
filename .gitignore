@@ -1,5 +1,7 @@
+.DS_Store
 node_modules
 coverage
+public/uploads
 .env.dev
 .env.test
 .env.prod

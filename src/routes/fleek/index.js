@@ -1,10 +1,12 @@
 const Router = require('@koa/router');
-const _ = new Router();
-_.get('/hello', async (ctx) => {
+const routerHelper = require('../helper');
+const router = new Router();
+router.get('/hello', async (ctx) => {
   ctx.body = 'Hello, Fleek';
 });
-const subRouters = ['storage'];
-subRouters.forEach((subRouterName) => {
-  _.use(`/${subRouterName}`, require(`./${subRouterName}`).routes());
+['storage'].forEach((subRouterName) => {
+  const controller = require(`./${subRouterName}`);
+  routerHelper.restfulMapping(router, subRouterName, controller);
 });
-module.exports = _;
+
+module.exports = router;

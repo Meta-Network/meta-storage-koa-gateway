@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add pidusage
+  /usr/local/bin/node /usr/local/bin/yarn add @fleekhq/fleek-storage-js
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:.:/Users/chariots/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/MacGPG2/bin:/usr/local/git/bin:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.npmjs.org/pidusage: tunneling socket could not be established, cause=connect ECONNREFUSED 127.0.0.1:8118
+  Error: https://registry.npmjs.org/@fleekhq%2ffleek-storage-js: tunneling socket could not be established, cause=connect ECONNREFUSED 127.0.0.1:8118
       at ClientRequest.onError (/usr/local/lib/node_modules/yarn/lib/cli.js:152235:17)
       at Object.onceWrapper (events.js:482:26)
       at ClientRequest.emit (events.js:375:28)

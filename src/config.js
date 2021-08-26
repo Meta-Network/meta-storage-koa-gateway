@@ -14,6 +14,7 @@ const calculateValue = () => {
       storage: {
         api: {
           key: envs.FLEEK_STORAGE_API_KEY,
+          secret: envs.FLEEK_STORAGE_API_SECRET,
         },
       },
     },
@@ -24,6 +25,11 @@ const calculateValue = () => {
       env: envs.NODE_ENV,
     },
   };
+  if (envs.MODULES) {
+    value.modules = envs.MODULES.split(',')
+      .map((moduleName) => moduleName.trim())
+      .filter((moduleName) => moduleName !== '');
+  }
 };
 calculateValue();
 
