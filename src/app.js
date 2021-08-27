@@ -1,3 +1,4 @@
+
 const Koa = require('koa');
 const multer = require('@koa/multer');
 const path = require('path');
@@ -7,40 +8,65 @@ const jsonwebtoken = require('jsonwebtoken');
 const cors = require('koa-cors');
 
 const config = require('./config').value;
+const logger = require('./logger');
 
 const app = new Koa();
 app.keys = ['meta-storage-secret-key'];
 app.proxy = true;
 app.use(helmet());
-// app.use(cookie());
 if (config.jwt.enabled) {
-  console.log(config.jwt.publicKey);
+  const parseAuthHeader = (hdrValue) => {
+    if (typeof hdrValue !== 'string') {
+      return null;
+    }
+    const matches = hdrValue.match(/(\S+)\s+(\S+)/);
+    return matches && { scheme: matches[1], value: matches[2] };
+  };
+  const jwtFromRequestMethods = {
+    cookie(ctx) {
+      return ctx.cookies.get(config.jwt.accessTokenName);
+    },
+    authHeaderAsBearerToken(ctx) {
 
+      const authHeader = ctx.get('Authorization');
+      logger.debug(`authHeader: ${authHeader}`);
+      if (!authHeader) {
+        return undefined;
+      }
+      const authParams = parseAuthHeader(authHeader);
+      if (authParams && authParams.scheme.toLowerCase() === 'bearer') {
+        return authParams.value;
+      }
+      return undefined;
+
+    }
+  };
   app.use(async (ctx, next) => {
-    const accessToken = ctx.cookies.get(config.jwt.accessTokenName);
-    console.log(`accessToken: ${accessToken}`);
-    // const jwtPayload = jsonwebtoken.decode(accessToken);
-    // console.log(jwtPayload);
+    const accessToken = jwtFromRequestMethods[config.jwt.fromRequest](ctx);
+    logger.debug(`accessToken: ${accessToken}`);
+
     if (!accessToken) {
       ctx.throw(401);
     }
     try {
       const result = jsonwebtoken.verify(accessToken, config.jwt.publicKey, {
-        ignoreExpiration: true,
+        ignoreExpiration: false,
         algorithms: ['RS256', 'RS384'],
       });
-      console.log(result);
-      if (result && result.sub) {
-        ctx.user = {
-          id: +result.sub,
-          username: result.username,
-          instance: result.iss
-        };
-        console.log('ctx.user', ctx.user);
-        await next();
+      logger.debug(`jwt verify result: ${result}`);
+      if (!(result && result.sub && result.purpose === 'access_token')) {
+        ctx.throw(401, 'invalid jwt purpose');
       }
+      ctx.user = {
+        id: +result.sub,
+        username: result.username,
+        instance: result.iss
+      };
+      logger.debug('ctx.user', ctx.user);
+      await next();
+
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       ctx.throw(401);
     }
 

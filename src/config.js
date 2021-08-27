@@ -25,6 +25,7 @@ const calculateValue = () => {
 
       accessTokenName: envs.JWT_ACCESS_TOKEN_NAME,
       enabled: 'true' === envs.JWT_ENABLED,
+      fromRequest: envs.JWT_FROM_REQUEST,
       publicKey: envs.JWT_PUBLIC_KEY,
     },
     logger: {
