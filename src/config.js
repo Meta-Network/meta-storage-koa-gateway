@@ -33,6 +33,7 @@ const calculateValue = () => {
     metrics: {
       enabled: true,
     },
+    modules: ['fleek'],
     node: {
       env: envs.NODE_ENV,
     },
@@ -41,11 +42,7 @@ const calculateValue = () => {
     },
   };
 
-  if (envs.MODULES) {
-    value.modules = envs.MODULES.split(',')
-      .map((moduleName) => moduleName.trim())
-      .filter((moduleName) => moduleName !== '');
-  }
+
 };
 calculateValue();
 
