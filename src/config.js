@@ -28,7 +28,7 @@ const calculateValue = () => {
       publicKey: envs.JWT_PUBLIC_KEY,
     },
     logger: {
-      level: 'info',
+      level: envs.LOGGER_LEVEL || 'info',
     },
     metrics: {
       enabled: true,
@@ -38,7 +38,7 @@ const calculateValue = () => {
       env: envs.NODE_ENV,
     },
     upload: {
-      maxSize: 5 * 1024 * 1024,
+      maxSize: +(envs.UPLOAD_MAX_SIZE) || 5 * 1024 * 1024,
     },
   };
 
