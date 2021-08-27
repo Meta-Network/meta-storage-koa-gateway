@@ -10,6 +10,9 @@ const calculateValue = () => {
     app: {
       port: +(envs.PORT) || 3000,
     },
+    cors: {
+      origin: 'true' === envs.CORS_ORIGIN ? true : ('false' === envs.CORS_ORIGIN || undefined === envs.CORS_ORIGIN || null === envs.CORS_ORIGIN ? false : envs.CORS_ORIGIN)
+    },
     fleek: {
       storage: {
         api: {
@@ -18,8 +21,18 @@ const calculateValue = () => {
         },
       },
     },
+    jwt: {
+
+      accessTokenName: envs.JWT_ACCESS_TOKEN_NAME,
+      enabled: 'true' === envs.JWT_ENABLED,
+      fromRequest: envs.JWT_FROM_REQUEST,
+      publicKey: envs.JWT_PUBLIC_KEY,
+    },
     logger: {
       level: envs.LOGGER_LEVEL || 'info',
+    },
+    metrics: {
+      enabled: 'true' === envs.METRICS_ENABLED,
     },
     node: {
       env: envs.NODE_ENV,
@@ -28,6 +41,7 @@ const calculateValue = () => {
       maxSize: +(envs.UPLOAD_MAX_SIZE) || 5 * 1024 * 1024
     }
   };
+
   if (envs.MODULES) {
     value.modules = envs.MODULES.split(',')
       .map((moduleName) => moduleName.trim())

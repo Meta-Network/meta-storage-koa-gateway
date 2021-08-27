@@ -2,6 +2,14 @@
 
 ## Introduction
 
+### Feature
+
+- IPFS
+  - Fleek Storage
+- JWT Auth
+  - Cookie
+  - Authorization header as bearer token
+
 ## Development
 
 ### Running
@@ -53,11 +61,13 @@ yarn husky add .husky/commit-msg 'yarn commitlint --edit $1'
 Environment file: `.env.${NODE_ENV}`
 
 Environments:
+
 - `dev`
 - `test`
 - `prod`
 
+Check `.env.example`
+
 ### Hosts
 
 #### Vercel
-
