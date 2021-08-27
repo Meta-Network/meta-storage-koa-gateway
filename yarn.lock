@@ -685,6 +685,13 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@koa/cors@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@koa/cors/-/cors-3.1.0.tgz#618bb073438cfdbd3ebd0e648a76e33b84f3a3b2"
+  integrity sha512-7ulRC1da/rBa6kj6P4g2aJfnET3z8Uf3SWu60cjbtxTA5g8lxRdX/Bd2P92EagGwwAhANeNw8T8if99rJliR6Q==
+  dependencies:
+    vary "^1.1.2"
+
 "@koa/multer@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@koa/multer/-/multer-3.0.0.tgz#439777949f28097d7b329c0b4ce3048074c862f8"
@@ -3362,11 +3369,6 @@ koa-cookie@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/koa-cookie/-/koa-cookie-1.0.0.tgz#7c79723dd03b97abcfe430028b700bd47a36dafb"
   integrity sha1-fHlyPdA7l6vP5DACi3AL1Ho22vs=
-
-koa-cors@^0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/koa-cors/-/koa-cors-0.0.16.tgz#98107993a7909e34c042986c5ec6156d77f3432e"
-  integrity sha1-mBB5k6eQnjTAQphsXsYVbXfzQy4=
 
 koa-helmet@^6.1.0:
   version "6.1.0"
