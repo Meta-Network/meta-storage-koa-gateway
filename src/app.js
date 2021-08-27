@@ -4,7 +4,7 @@ const path = require('path');
 const koaStatic = require('koa-static');
 const helmet = require('koa-helmet');
 const jsonwebtoken = require('jsonwebtoken');
-const cors = require('koa-cors');
+const cors = require('@koa/cors');
 
 const config = require('./config').value;
 const logger = require('./logger');
@@ -14,12 +14,13 @@ app.keys = ['meta-storage-secret-key'];
 app.proxy = true;
 app.use(helmet());
 
-
-app.use(cors({
-  origin: config.cors.origin,
-  credentials: config.cors.credentials,
-  allowMethods: config.cors.allowMethods,
-}));
+app.use(
+  cors({
+    origin: config.cors.origin,
+    credentials: config.cors.credentials,
+    allowMethods: config.cors.allowMethods,
+  }),
+);
 
 if (config.jwt.enabled) {
   const parseAuthHeader = (hdrValue) => {
@@ -47,7 +48,6 @@ if (config.jwt.enabled) {
     },
   };
   app.use(async (ctx, next) => {
-
     try {
       const accessToken = jwtFromRequestMethods[config.jwt.fromRequest](ctx);
       logger.debug(`accessToken: ${accessToken}`);
@@ -69,7 +69,6 @@ if (config.jwt.enabled) {
         instance: result.iss,
       };
       logger.debug('ctx.user', ctx.user);
-
     } catch (err) {
       logger.error(err);
       ctx.throw(401);

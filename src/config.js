@@ -11,7 +11,7 @@ const calculateValue = () => {
       port: +envs.PORT || 3000,
     },
     cors: {
-      origin: envs.CORS_ORIGIN || true,
+      origin: envs.CORS_ORIGIN || '*',
       credentials: envs.CORS_CREDENTIALS || false,
       allowMethods: envs.CORS_ALLOW_METHODS || 'GET,HEAD,PUT,POST,DELETE,PATCH',
     },
@@ -40,11 +40,9 @@ const calculateValue = () => {
       env: envs.NODE_ENV,
     },
     upload: {
-      maxSize: +(envs.UPLOAD_MAX_SIZE) || 5 * 1024 * 1024,
+      maxSize: +envs.UPLOAD_MAX_SIZE || 5 * 1024 * 1024,
     },
   };
-
-
 };
 calculateValue();
 
