@@ -71,5 +71,3 @@ Check `.env.example`
 ### Hosts
 
 #### Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwillyandor%2Fmeta-storage-koa-gateway&env=MODULES,FLEEK_STORAGE_API_KEY,FLEEK_STORAGE_API_SECRET,JWT_ENABLED,JWT_PUBLIC_KEY,JWT_FROM_REQUEST,JWT_ACCESS_TOKEN_NAME&envDescription=Toggles%20%26%20API%20KEYS&envLink=https%3A%2F%2Fgithub.com%2Fwillyandor%2Fmeta-storage-koa-gateway%2Fblob%2Fmain%2F.env.example&demo-title=Meta%20Storage%20Gateway&demo-description=A%20fleek-storage%20based%20file%20uploader%20gateway%20example&demo-url=https%3A%2F%2Fmeta-storage-koa-gateway-meta-summer.vercel.app%2F&skippable-integrations=1)

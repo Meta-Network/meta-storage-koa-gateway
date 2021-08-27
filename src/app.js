@@ -1,4 +1,3 @@
-
 const Koa = require('koa');
 const multer = require('@koa/multer');
 const path = require('path');
@@ -27,7 +26,6 @@ if (config.jwt.enabled) {
       return ctx.cookies.get(config.jwt.accessTokenName);
     },
     authHeaderAsBearerToken(ctx) {
-
       const authHeader = ctx.get('Authorization');
       logger.debug(`authHeader: ${authHeader}`);
       if (!authHeader) {
@@ -38,8 +36,7 @@ if (config.jwt.enabled) {
         return authParams.value;
       }
       return undefined;
-
-    }
+    },
   };
   app.use(async (ctx, next) => {
     const accessToken = jwtFromRequestMethods[config.jwt.fromRequest](ctx);
@@ -60,17 +57,14 @@ if (config.jwt.enabled) {
       ctx.user = {
         id: +result.sub,
         username: result.username,
-        instance: result.iss
+        instance: result.iss,
       };
       logger.debug('ctx.user', ctx.user);
       await next();
-
     } catch (err) {
       logger.error(err);
       ctx.throw(401);
     }
-
-
   });
 }
 //app.use(require('./auth'));
@@ -85,7 +79,7 @@ const upload = multer({
   storage: multer.diskStorage({
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
-  limits: { fileSize: config.upload.maxSize }
+  limits: { fileSize: config.upload.maxSize },
   // storage: multer.memoryStorage(),
 }); // you can pass options here
 app.use(upload.single('file'));
