@@ -1,12 +1,11 @@
 const Router = require('@koa/router');
-const routerHelper = require('../helper');
+
+const jwtAuth = require('../../middlewares/jwt-auth');
+const upload = require('../../middlewares/upload');
+const storage = require('./storage');
+
 const router = new Router();
-router.get('/hello', async (ctx) => {
-  ctx.body = 'Hello, Fleek';
-});
-['storage'].forEach((subRouterName) => {
-  const controller = require(`./${subRouterName}`);
-  routerHelper.restfulMapping(router, subRouterName, controller);
-});
+router.get('/storage', storage.get);
+router.post('/storage', jwtAuth, upload, storage.post);
 
 module.exports = router;
