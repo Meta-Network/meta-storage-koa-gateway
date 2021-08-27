@@ -14,6 +14,9 @@ if (config.modules) {
 router.get('/', async (ctx) => {
   ctx.body = 'Meta Storage Gateway';
 });
+router.post('/', async (ctx) => {
+  ctx.body = 'Created';
+});
 router.get('/robots.txt', async (ctx) => {
   ctx.set('Content-Type', 'text/plain');
   ctx.body = 'User-agent: *\nDisallow: /';
@@ -23,6 +26,8 @@ if (config.metrics.enabled) {
   router.get('/metrics', async (ctx) => {
     ctx.body = {
       'cors.origin': config.cors.origin,
+      'cors.credentials': config.cors.credentials,
+      'cors.allowMethods': config.cors.allowMethods,
       'logger.level': config.logger.level,
       'jwt.accessTokenName': config.jwt.accessTokenName,
       'jwt.enabled': config.jwt.enabled,

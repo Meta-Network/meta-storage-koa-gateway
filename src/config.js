@@ -11,7 +11,9 @@ const calculateValue = () => {
       port: +envs.PORT || 3000,
     },
     cors: {
-      origin: envs.CORS_ORIGIN || '*',
+      origin: envs.CORS_ORIGIN || true,
+      credentials: envs.CORS_CREDENTIALS || false,
+      allowMethods: envs.CORS_ALLOW_METHODS || 'GET,HEAD,PUT,POST,DELETE,PATCH',
     },
     fleek: {
       storage: {

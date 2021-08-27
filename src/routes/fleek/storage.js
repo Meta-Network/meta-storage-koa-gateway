@@ -35,7 +35,10 @@ module.exports = {
         data: result,
       };
     } else {
-      ctx.throw(400, 'no files to upload');
+      ctx.body = {
+        statusCode: 400,
+        message: 'no files to upload'
+      };
     }
   },
 };
