@@ -1,4 +1,3 @@
-
 const Koa = require('koa');
 const multer = require('@koa/multer');
 const path = require('path');
@@ -27,7 +26,6 @@ if (config.jwt.enabled) {
       return ctx.cookies.get(config.jwt.accessTokenName);
     },
     authHeaderAsBearerToken(ctx) {
-
       const authHeader = ctx.get('Authorization');
       logger.debug(`authHeader: ${authHeader}`);
       if (!authHeader) {
@@ -38,17 +36,17 @@ if (config.jwt.enabled) {
         return authParams.value;
       }
       return undefined;
-
-    }
+    },
   };
   app.use(async (ctx, next) => {
-    const accessToken = jwtFromRequestMethods[config.jwt.fromRequest](ctx);
-    logger.debug(`accessToken: ${accessToken}`);
 
-    if (!accessToken) {
-      ctx.throw(401);
-    }
     try {
+      const accessToken = jwtFromRequestMethods[config.jwt.fromRequest](ctx);
+      logger.debug(`accessToken: ${accessToken}`);
+
+      if (!accessToken) {
+        ctx.throw(401);
+      }
       const result = jsonwebtoken.verify(accessToken, config.jwt.publicKey, {
         ignoreExpiration: false,
         algorithms: ['RS256', 'RS384'],
@@ -58,34 +56,26 @@ if (config.jwt.enabled) {
         ctx.throw(401, 'invalid jwt purpose');
       }
       ctx.user = {
-        id: +result.sub,
+        id: result.sub,
         username: result.username,
-        instance: result.iss
+        instance: result.iss,
       };
       logger.debug('ctx.user', ctx.user);
-      await next();
 
     } catch (err) {
       logger.error(err);
       ctx.throw(401);
     }
-
-
+    await next();
   });
 }
-//app.use(require('./auth'));
 app.use(koaStatic(path.join(__dirname)));
-// app.use(cors({
-// origin: config.cors.origin,
-// allowedMethods: 'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'
-
-// }));
 app.use(cors());
 const upload = multer({
   storage: multer.diskStorage({
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
-  limits: { fileSize: config.upload.maxSize }
+  limits: { fileSize: config.upload.maxSize },
   // storage: multer.memoryStorage(),
 }); // you can pass options here
 app.use(upload.single('file'));
