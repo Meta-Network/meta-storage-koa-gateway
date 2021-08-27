@@ -30,6 +30,9 @@ const calculateValue = () => {
     logger: {
       level: envs.LOGGER_LEVEL || 'info',
     },
+    metrics: {
+      enabled: 'true' === envs.METRICS_ENABLED,
+    },
     node: {
       env: envs.NODE_ENV,
     },

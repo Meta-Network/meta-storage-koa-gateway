@@ -19,17 +19,19 @@ router.get('/robots.txt', async (ctx) => {
   ctx.body = 'User-agent: *\nDisallow: /';
 });
 
-router.get('/metrics', async (ctx) => {
-  ctx.body = {
-    "cors.origin": config.cors.origin,
-    "logger.level": config.logger.level,
-    "jwt.accessTokenName": config.jwt.accessTokenName,
-    "jwt.enabled": config.jwt.enabled,
-    "jwt.publicKey": config.jwt.publicKey,
-    "node.env": config.node.env,
-    "upload.maxSize": config.upload.maxSize,
-  };
-});
+if (config.metrics.enabled) {
+  router.get('/metrics', async (ctx) => {
+    ctx.body = {
+      "cors.origin": config.cors.origin,
+      "logger.level": config.logger.level,
+      "jwt.accessTokenName": config.jwt.accessTokenName,
+      "jwt.enabled": config.jwt.enabled,
+      "jwt.publicKey": config.jwt.publicKey,
+      "node.env": config.node.env,
+      "upload.maxSize": config.upload.maxSize,
+    };
+  });
+}
 
 router.get('/users/me', async (ctx) => {
   ctx.body = ctx.user;
