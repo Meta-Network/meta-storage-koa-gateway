@@ -22,24 +22,20 @@ module.exports = {
 
     if (ctx.file) {
       const file = ctx.file;
-      const result =
-        await fleekStorage.upload({
-          apiKey: config.fleek.storage.api.key,
-          apiSecret: config.fleek.storage.api.secret,
-          key: `metanetwork/users/${userId}/${file.originalname}`,
-          data: fs.createReadStream(file.path),
-        });
+      const result = await fleekStorage.upload({
+        apiKey: config.fleek.storage.api.key,
+        apiSecret: config.fleek.storage.api.secret,
+        key: `metanetwork/users/${userId}/${file.originalname}`,
+        data: fs.createReadStream(file.path),
+      });
 
       ctx.body = {
         statusCode: 201,
         message: 'uploaded',
         data: result,
       };
-    }
-    else {
+    } else {
       ctx.throw(400, 'no files to upload');
     }
-
-
   },
 };

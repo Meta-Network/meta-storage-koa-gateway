@@ -8,10 +8,17 @@ let value;
 const calculateValue = () => {
   value = {
     app: {
-      port: +(envs.PORT) || 3000,
+      port: +envs.PORT || 3000,
     },
     cors: {
-      origin: 'true' === envs.CORS_ORIGIN ? true : ('false' === envs.CORS_ORIGIN || undefined === envs.CORS_ORIGIN || null === envs.CORS_ORIGIN ? false : envs.CORS_ORIGIN)
+      origin:
+        'true' === envs.CORS_ORIGIN
+          ? true
+          : 'false' === envs.CORS_ORIGIN ||
+            undefined === envs.CORS_ORIGIN ||
+            null === envs.CORS_ORIGIN
+          ? false
+          : envs.CORS_ORIGIN,
     },
     fleek: {
       storage: {
@@ -22,7 +29,6 @@ const calculateValue = () => {
       },
     },
     jwt: {
-
       accessTokenName: envs.JWT_ACCESS_TOKEN_NAME,
       enabled: 'true' === envs.JWT_ENABLED,
       fromRequest: envs.JWT_FROM_REQUEST,
@@ -38,8 +44,8 @@ const calculateValue = () => {
       env: envs.NODE_ENV,
     },
     upload: {
-      maxSize: +(envs.UPLOAD_MAX_SIZE) || 5 * 1024 * 1024
-    }
+      maxSize: +envs.UPLOAD_MAX_SIZE || 5 * 1024 * 1024,
+    },
   };
 
   if (envs.MODULES) {

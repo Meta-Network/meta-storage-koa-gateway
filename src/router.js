@@ -22,13 +22,13 @@ router.get('/robots.txt', async (ctx) => {
 if (config.metrics.enabled) {
   router.get('/metrics', async (ctx) => {
     ctx.body = {
-      "cors.origin": config.cors.origin,
-      "logger.level": config.logger.level,
-      "jwt.accessTokenName": config.jwt.accessTokenName,
-      "jwt.enabled": config.jwt.enabled,
-      "jwt.publicKey": config.jwt.publicKey,
-      "node.env": config.node.env,
-      "upload.maxSize": config.upload.maxSize,
+      'cors.origin': config.cors.origin,
+      'logger.level': config.logger.level,
+      'jwt.accessTokenName': config.jwt.accessTokenName,
+      'jwt.enabled': config.jwt.enabled,
+      'jwt.publicKey': config.jwt.publicKey,
+      'node.env': config.node.env,
+      'upload.maxSize': config.upload.maxSize,
     };
   });
 }
