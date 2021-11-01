@@ -3,6 +3,7 @@ const logger = require('../../logger');
 
 const fs = require('fs');
 const path = require('path');
+const han = require('han');
 const fleekStorage = require('@fleekhq/fleek-storage-js');
 module.exports = {
   get(ctx) {
@@ -22,10 +23,14 @@ module.exports = {
 
     if (ctx.file) {
       const file = ctx.file;
+      const filenameParsed = path.parse(file.originalname);
+      const filename =
+        han.letter(filenameParsed.name, '-') + filenameParsed.ext;
+
       const result = await fleekStorage.upload({
         apiKey: config.fleek.storage.api.key,
         apiSecret: config.fleek.storage.api.secret,
-        key: `metanetwork/users/${userId}/${file.originalname}`,
+        key: `metanetwork/users/${userId}/${filename}`,
         data: fs.createReadStream(file.path),
       });
 
